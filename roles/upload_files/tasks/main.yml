@@ -1,0 +1,6 @@
+---
+  # Copy file tu local len server
+  - copy:
+      src: "config.js"
+      dest: "/home/stagging/test_ansible/"
+      mode: '0644'

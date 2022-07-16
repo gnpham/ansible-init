@@ -1,0 +1,11 @@
+-
+  name: Server playbook
+  hosts: product
+  become: yes
+  become_user: stagging
+  gather_facts: false
+  vars:
+    testFolder: /home/stagging/test_ansible
+  roles:
+    - create_folder
+    - upload_files

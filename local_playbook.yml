@@ -1,0 +1,12 @@
+-
+  name: Localhost playbook
+  hosts: stagging
+  connection: local
+  tasks:
+    - name: Make sure target dir exists
+      file:
+        path: /etc/ansible
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'

@@ -1,0 +1,16 @@
+---
+  - name: Creates directory if not exists
+    file:
+      path: "{{test_folder}}"
+      state: directory
+      mode: '0775'
+  - name: Ansible check folder exists and rgister to variable.
+    stat:
+      path: "{{test_folder}}"
+    register: dir_details
+  - debug:
+      msg: "The directory is exists"
+    when: dir_details.stat.exists
+  - debug:
+      msg: "The directory is not exists"
+    when: not dir_details.stat.exists

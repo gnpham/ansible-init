@@ -1,0 +1,35 @@
+-
+  name: Server playbook
+  hosts: product
+  become: yes
+  become_user: root
+  vars:
+    testFolder: /home/stagging/test_ansible
+  tasks:
+    # Kiem tra thu muc co chua, neu chua co thi tao moi
+    - name: Creates directory
+      file:
+        path: "/home/stagging/test_ansible"
+        state: directory
+        owner: stagging
+        group: stagging
+        mode: '0775'
+    # Check folder roi dang ky vao bien 
+    - name: Ansible check folder exists.
+      stat:
+        path: "{{testFolder}}"
+      register: dir_details
+    - debug:
+        msg: "The directory is exists"
+      when: dir_details.stat.exists
+    - debug:
+        msg: "The directory is not exists"
+      when: not dir_details.stat.exists
+    
+    # Copy file tu local len server
+    - copy:
+        src: "./files/config.js"
+        dest: "/home/stagging/test_ansible/"
+        owner: stagging
+        group: stagging
+        mode: '0644'
